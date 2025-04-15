@@ -1,0 +1,27 @@
+# FastAPI and related
+fastapi
+uvicorn[standard]
+pydantic
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
+sqlalchemy
+alembic
+psycopg2-binary
+
+# AI and LLM tools
+langchain
+langchain_experimental
+langgraph
+anthropic
+
+# Testing
+pytest
+pytest-asyncio
+httpx
+
+# Development
+black
+isort
+flake8
+mypy

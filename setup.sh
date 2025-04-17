@@ -41,8 +41,48 @@ fi
 
 # Generate FastAPI project structure if this is a first time setup
 if [ "$FIRST_TIME_SETUP" = true ]; then
-    echo "Creating FastAPI project structure using CLI..."
-    yes | create-fastapi-project  # Use 'yes' to auto-confirm prompts
+    # Always create the project manually to avoid create-fastapi-project's interactive prompts
+    echo "Creating project structure manually..."
+    
+    # Create basic project structure manually
+    mkdir -p app/api/v1/endpoints
+    mkdir -p app/core
+    mkdir -p app/db
+    mkdir -p app/models
+    mkdir -p app/schemas
+    mkdir -p app/utils
+    
+    # Create basic __init__.py files
+    touch app/__init__.py
+    touch app/api/__init__.py
+    touch app/api/v1/__init__.py
+    touch app/api/v1/endpoints/__init__.py
+    touch app/core/__init__.py
+    touch app/db/__init__.py
+    touch app/models/__init__.py
+    touch app/schemas/__init__.py
+    touch app/utils/__init__.py
+    
+    # Create main.py file with basic FastAPI setup
+    cat > app/main.py << 'EOF'
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI(title="GoChat API")
+
+# Set up CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Update this in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to GoChat API"}
+EOF
     
     # Set up additional GoChat-specific directories
     echo "Creating additional GoChat project directories..."
